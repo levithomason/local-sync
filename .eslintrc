@@ -1,12 +1,12 @@
 {
-  "extends": [
-    "ta",
-    "ta/frontend"
-  ],
-  "globals": {
-    "__DEV__": false,
-    "__DEBUG__": false,
-    "__PROD__": false,
-    "$": false
+  "extends": ["plugin:prettier/recommended"],
+  "plugins": ["prettier", "import"],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/extensions": ["error", "always"]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
   }
 }

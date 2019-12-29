@@ -1,4 +1,4 @@
-import memoryStorage from './memoryStorage'
+import memoryStorage from './memoryStorage.js'
 
 // --------------------------------------------------------
 // Utils
@@ -14,12 +14,13 @@ const storage = (function getStorageAdapter() {
   //  - exists
   //  - can set/get/remove
   //  - read/write values match
-  /* eslint-disable no-console */
   try {
-    const set = '' + new Date
+    const set = Date.now().toString(36)
     adapter.setItem('uid', set)
     if (adapter.getItem('uid') !== set) {
-      console.info('LocalSync: localStorage read/write is inconsistent, falling back to in-memory storage.')
+      console.info(
+        'LocalSync: localStorage read/write is inconsistent, falling back to in-memory storage.'
+      )
       adapter = memoryStorage
     }
     adapter.removeItem('uid')
@@ -28,7 +29,6 @@ const storage = (function getStorageAdapter() {
     console.info('LocalSync: localStorage was not available, falling back to in-memory storage.')
     adapter = memoryStorage
   }
-  /* eslint-enable no-console */
 
   // create storage
   return {
@@ -38,7 +38,7 @@ const storage = (function getStorageAdapter() {
     key: (index) => adapter.key(index),
     length: () => adapter.length,
   }
-}())
+})()
 
 // --------------------------------------------------------
 // Local Sync
@@ -56,9 +56,15 @@ class LocalSync {
   constructor(options = {}) {
     if (!(options instanceof Object)) throw new Error('LocalSync "options" must be an object.')
 
-    this._bucket = this._validateBucket(options.bucket || 'default')
-    this._prefix = this._validatePrefix(options.prefix || 'ls')
-    this._separator = this._validateSeparator(options.separator || '.')
+    const bucket = this._validateBucket(options.bucket || 'default')
+    const prefix = this._validatePrefix(options.prefix || 'ls')
+    const separator = this._validateSeparator(options.separator || '.')
+
+    Object.defineProperties(this, {
+      _bucket: { value: bucket, writable: true, enumerable: false, configurable: false },
+      _prefix: { value: prefix, writable: true, enumerable: false, configurable: false },
+      _separator: { value: separator, writable: true, enumerable: false, configurable: false },
+    })
   }
 
   // --------------------------------------------------------
@@ -131,7 +137,7 @@ class LocalSync {
     const separator = escapeRegExp(this._separator)
     const re = new RegExp(`${prefix}${separator}(.*)${separator}`)
     const match = fullKey.match(re)
-    return match && match[1] || undefined
+    return (match && match[1]) || undefined
   }
 
   /**
@@ -210,9 +216,9 @@ class LocalSync {
    */
   _validateValue(value) {
     const validTypes = [null, undefined, true, 0, '', [], {}]
-    const signature = arg => Object.prototype.toString.call(arg)
+    const signature = (arg) => Object.prototype.toString.call(arg)
 
-    if (!validTypes.some(valid => signature(value) === signature(valid))) {
+    if (!validTypes.some((valid) => signature(value) === signature(valid))) {
       throw new Error(`LocalSync cannot store "value" of type ${signature(value)}`)
     }
     return value
@@ -249,7 +255,7 @@ class LocalSync {
    * @returns {String[]} An array of bucket strings.
    */
   allBuckets() {
-    return this._mapBuckets(bucket => bucket)
+    return this._mapBuckets((bucket) => bucket)
   }
 
   //
@@ -267,7 +273,7 @@ class LocalSync {
     try {
       return value === 'undefined' ? undefined : JSON.parse(value)
     } catch (e) {
-      console.error('Could not JSON.parse() value:', value) // eslint-disable-line no-console
+      console.error('Could not JSON.parse() value:', value)
       throw e
     }
   }
@@ -294,7 +300,7 @@ class LocalSync {
   put(key, value) {
     this._validateKey(key)
     this._validateValue(value)
-    return this.set(key, { ...this.get(key), ...value })
+    return this.set(key, Object.assign({}, this.get(key), value))
   }
 
   //
@@ -317,7 +323,7 @@ class LocalSync {
    * Clears all values from the current bucket.
    */
   clear() {
-    this.getAll().forEach(item => {
+    this.getAll().forEach((item) => {
       this.remove(Object.keys(item)[0])
     })
   }
@@ -331,7 +337,7 @@ class LocalSync {
    * @returns {String[]} An array of `key` strings.
    */
   keys() {
-    return this._mapKeys(key => key)
+    return this._mapKeys((key) => key)
   }
 
   /**
@@ -339,7 +345,7 @@ class LocalSync {
    * @returns {Array.<*>} An array of values.
    */
   values() {
-    return this._mapKeys(key => this.get(key))
+    return this._mapKeys((key) => this.get(key))
   }
 
   /**
@@ -347,7 +353,7 @@ class LocalSync {
    * @returns {Object[]} An array of objects `{<key>: <value>}`.
    */
   getAll() {
-    return this._mapKeys(key => ({ [key]: this.get(key) }))
+    return this._mapKeys((key) => ({ [key]: this.get(key) }))
   }
 }
 

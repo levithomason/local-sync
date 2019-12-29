@@ -2,5 +2,3 @@ node_modules/
 *.log*
 .idea/
 dist/
-coverage/
-docs/dist/

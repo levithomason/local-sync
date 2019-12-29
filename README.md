@@ -1,7 +1,4 @@
-# [Local Sync](https://technologyadvice.github.io/local-sync)
-[![Circle CI](https://img.shields.io/circleci/project/TechnologyAdvice/local-sync/master.svg?style=flat-square)](https://circleci.com/gh/TechnologyAdvice/local-sync/tree/master)
-[![Codecov](https://img.shields.io/codecov/c/github/TechnologyAdvice/local-sync/master.svg?style=flat-square)](https://codecov.io/gh/TechnologyAdvice/local-sync)
-[![npm](https://img.shields.io/npm/v/local-sync.svg?style=flat-square)](https://www.npmjs.com/package/local-sync)
+# [Local Sync](https://levithomason.github.io/local-sync) [![npm](https://img.shields.io/npm/v/local-sync.svg?style=flat-square)](https://www.npmjs.com/package/local-sync)
 
 A friendly, tiny, and cross-browser local storage solution:
 
@@ -10,42 +7,37 @@ A friendly, tiny, and cross-browser local storage solution:
   ✓ Namespaced storage support  
   ✓ In-memory fallback  
 
-**NPM**
-
-CommonJS build that needs to be bundled in your app.
+## Install
 
 ```
-npm i local-sync -S
+yarn add local-sync
 ```
 
-**CDN**
+<details>
+<summary>CDN</summary>
 
-Browser ready build that can be included in a script tag.
-
+Common JS
 ```
-https://cdn.taplatform.net/local-sync/x.x.x/local-sync.js
-https://cdn.taplatform.net/local-sync/x.x.x/local-sync.min.js
+https://unpkg.com/local-sync@x.x.x/dist/cjs/local-sync.js
+https://unpkg.com/local-sync@x.x.x/dist/cjs/local-sync.min.js
 ```
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+ES Module
+```
+https://unpkg.com/local-sync@x.x.x/dist/esm/local-sync.js
+https://unpkg.com/local-sync@x.x.x/dist/esm/local-sync.min.js
+```
 
-
-- [API](#api)
-- [Usage](#usage)
-  - [Buckets](#buckets)
-  - [set, get, put](#set-get-put)
-  - [keys, values, getAll](#keys-values-getall)
-  - [remove, clear](#remove-clear)
-- [Releasing](#releasing)
-- [Credit](#credit)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
+UMD
+```
+https://unpkg.com/local-sync@x.x.x/dist/umd/local-sync.js
+https://unpkg.com/local-sync@x.x.x/dist/umd/local-sync.min.js
+```
+</details>
 
 ## API
 
-See [API Documentation](https://github.com/TechnologyAdvice/local-sync/blob/master/API.md).
+See [API Documentation](https://github.com/levithomason/local-sync/blob/master/API.md).
 
 ## Usage
 
@@ -141,19 +133,3 @@ ls.clear()
 ls.keys()
 // => []
 ```
-
-***
-
-## Releasing
-
-On the latest clean `master` run a build, commit and push, then:
-
-```sh
-npm run release:major
-npm run release:minor
-npm run release:patch
-```
-
-## Credit
-
-&copy; 2016 TechnologyAdvice
