@@ -1,0 +1,76 @@
+{
+  "name": "local-sync",
+  "version": "2.0.3",
+  "description": "A friendly, tiny, synchronous, namespaced, and dependency free local storage solution.",
+  "keywords": [
+    "local",
+    "storage",
+    "browser",
+    "synchronous"
+  ],
+  "main": "dist/cjs/local-sync.js",
+  "esnext": {
+    "main": "dist/esm/local-sync.js"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "start": "yarn build && yarn live-server",
+    "build": "yarn build:dist && yarn build:md",
+    "build:dist": "rm -rf dist && rollup -c rollup.config.js",
+    "build:md": "yarn jsdoc2md && yarn doctoc",
+    "doctoc": "doctoc API.md --github --maxlevel 4",
+    "jsdoc2md": "jsdoc2md --template API.hbs src/**/*.js > API.md",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix && prettier --write */*",
+    "prerelease": "yarn build && yarn lint",
+    "release:major": "yarn prerelease && ta-script npm/release major",
+    "release:minor": "yarn prerelease && ta-script npm/release minor",
+    "release:patch": "yarn prerelease && ta-script npm/release patch",
+    "postrelease": "yarn gh-pages",
+    "gh-pages": "gh-pages -d ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levithomason/local-sync.git"
+  },
+  "author": "Levi Thomason <me@levithomason.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/levithomason/local-sync/issues"
+  },
+  "homepage": "https://github.com/levithomason/local-sync#readme",
+  "devDependencies": {
+    "doctoc": "^1.4.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "gh-pages": "^2.1.1",
+    "husky": "^3.1.0",
+    "jsdoc-to-markdown": "^5.0.3",
+    "lint-staged": "^9.5.0",
+    "live-server": "^1.1.0",
+    "prettier": "^1.19.1",
+    "rollup": "^1.27.14",
+    "rollup-plugin-terser": "^5.1.3",
+    "ta-scripts": "^2.5.2"
+  },
+  "dependencies": {
+    "core-js": "3"
+  }
+}

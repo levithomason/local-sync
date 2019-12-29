@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Local Sync</title>
+    <script type="module">
+      import LocalSync from './src/LocalSync.js'
+      window.LocalSync = LocalSync
+    </script>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 1rem 2rem;
+      }
+      pre {
+        background: #eeeeee;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Local Sync</h1>
+    <p>Paste this demo into the console:</p>
+    <pre>
+const ls = new LocalSync()
+
+console.log('setBucket   =>', ls.setBucket('BikiniBottom'))
+console.log('set         =>', ls.set('bob', {name: 'SpongeBob'}))
+console.log('get         =>', ls.get('bob'))
+console.log('set         =>', ls.set('quotes', ['Squidward!']))
+console.log('get         =>', ls.get('quotes'))
+console.log('put         =>', ls.put('bob', {address: '124 Conch Street'}))
+console.log('put         =>', ls.put('quotes', ['Why so crabby, Patty?']))
+console.log('keys        =>', ls.keys())
+console.log('values      =>', ls.values())
+console.log('getAll      =>', ls.getAll())
+console.log('remove      =>', ls.remove('bob'))
+console.log('keys        =>', ls.keys())
+console.log('clear       =>', ls.clear())
+console.log('keys        =>', ls.keys())
+console.log('--------------------------------------------------------')
+console.log('setBucket   =>', ls.setBucket('NewBucket'))
+console.log('set         =>', ls.set('new key', 'new value'))
+console.log('setBucket   =>', ls.setBucket('FinalBucket'))
+console.log('getBucket   =>', ls.getBucket())
+console.log('allBuckets  =>', ls.allBuckets())</pre
+    >
+  </body>
+</html>
