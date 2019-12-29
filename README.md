@@ -1,4 +1,4 @@
-# [Local Sync](https://levithomason.github.io/local-sync) [![npm](https://img.shields.io/npm/v/local-sync.svg?style=flat-square)](https://www.npmjs.com/package/local-sync)
+# Local Sync [![npm](https://img.shields.io/npm/v/local-sync.svg?style=flat-square)](https://www.npmjs.com/package/local-sync)
 
 A friendly, tiny, and cross-browser local storage solution:
 
