@@ -9,6 +9,7 @@
     "synchronous"
   ],
   "main": "dist/cjs/local-sync.js",
+  "module": "dist/esm/local-sync.js",
   "esnext": {
     "main": "dist/esm/local-sync.js"
   },
